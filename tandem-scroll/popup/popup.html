@@ -1,0 +1,125 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Tandem Scroll</title>
+    <link rel="stylesheet" href="popup.css">
+  </head>
+  <body>
+    <main class="shell" aria-busy="false">
+      <header class="app-header">
+        <div class="brand">
+          <div class="brand-mark" aria-hidden="true">
+            <span></span>
+            <span></span>
+          </div>
+          <div>
+            <h1>Tandem Scroll</h1>
+            <p>Move through pages together</p>
+          </div>
+        </div>
+        <span id="status-pill" class="status-pill status-idle">Ready</span>
+      </header>
+
+      <section class="current-section" aria-labelledby="current-label">
+        <p id="current-label" class="eyebrow">This tab</p>
+        <div id="current-tab" class="tab-card"></div>
+      </section>
+
+      <section id="unsupported-view" class="message-panel" hidden>
+        <div class="message-icon" aria-hidden="true">!</div>
+        <div>
+          <h2>This page can’t be paired</h2>
+          <p>Open Tandem Scroll on a regular website tab.</p>
+        </div>
+      </section>
+
+      <section id="disconnected-view" class="view" hidden>
+        <div class="section-heading">
+          <div>
+            <h2>Choose the second tab</h2>
+            <p>Active tabs in other windows appear first.</p>
+          </div>
+          <span class="step-chip">1 → 2</span>
+        </div>
+
+        <div id="tab-list" class="tab-list" role="listbox" aria-label="Tabs available to pair"></div>
+        <div id="empty-tabs" class="empty-state" hidden>
+          <div class="empty-illustration" aria-hidden="true">
+            <span></span><i></i><span></span>
+          </div>
+          <strong>No other website tabs yet</strong>
+          <p>Open a page in another tab or window, then reopen this popup.</p>
+        </div>
+
+        <button id="pair-button" class="primary-button" type="button" disabled>
+          <span>Pair selected tabs</span>
+          <span aria-hidden="true">→</span>
+        </button>
+      </section>
+
+      <section id="connected-view" class="view" hidden>
+        <div class="connection-line" aria-hidden="true">
+          <span></span><i></i><span></span>
+        </div>
+
+        <div class="section-heading paired-heading">
+          <div>
+            <p class="eyebrow">Paired with</p>
+            <h2 id="partner-heading">Second tab</h2>
+          </div>
+          <span id="live-indicator" class="live-indicator"><i></i> Live</span>
+        </div>
+        <div id="partner-tab" class="tab-card partner-card"></div>
+
+        <div class="settings-card">
+          <div class="setting-row">
+            <div>
+              <strong>Scroll together</strong>
+              <span>Sync changes in either direction</span>
+            </div>
+            <button
+              id="sync-toggle"
+              class="switch"
+              type="button"
+              role="switch"
+              aria-checked="true"
+              aria-label="Scroll together"
+            ><span></span></button>
+          </div>
+
+          <div class="divider"></div>
+
+          <div class="setting-row axis-row">
+            <div>
+              <strong>Direction</strong>
+              <span>Choose which movement to copy</span>
+            </div>
+            <div class="segmented" role="group" aria-label="Scroll direction">
+              <button type="button" data-axis="vertical">Vertical</button>
+              <button type="button" data-axis="both">Both</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="button-row">
+          <button id="focus-partner" class="secondary-button" type="button">
+            Go to partner
+          </button>
+          <button id="unpair-button" class="ghost-button danger" type="button">
+            Unpair
+          </button>
+        </div>
+      </section>
+
+      <p id="notice" class="notice" role="status" aria-live="polite"></p>
+
+      <footer>
+        <span class="privacy-dot" aria-hidden="true"></span>
+        Scroll positions stay inside your browser
+      </footer>
+    </main>
+    <script src="popup.js"></script>
+  </body>
+</html>

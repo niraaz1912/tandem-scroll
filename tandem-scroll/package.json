@@ -1,0 +1,15 @@
+{
+  "name": "tandem-scroll",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "A Manifest V3 browser extension that synchronizes scrolling between two tabs.",
+  "scripts": {
+    "validate": "node scripts/validate.mjs",
+    "test": "node --test",
+    "check": "npm run validate && npm test"
+  },
+  "engines": {
+    "node": ">=20"
+  }
+}

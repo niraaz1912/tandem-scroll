@@ -1,88 +1,86 @@
-# Tandem Scroll Privacy Policy
+# PairPane Privacy Policy
 
-Last updated: July 20, 2026
+**Effective version:** PairPane 1.0.1  
+**Last updated:** July 22, 2026
 
-Tandem Scroll is designed to help users pair two browser tabs and keep their scrolling synchronized. This privacy policy explains what information the extension handles, how it is used, and what is not collected.
+PairPane is a local-first Chrome extension for aligning, comparing, and reviewing two pages selected by the user. PairPane has no account system, advertising, behavioral analytics, remote executable code, or PairPane-operated backend.
 
-## Summary
+## Information PairPane handles
 
-Tandem Scroll does not collect, sell, share, or transmit personal data. The extension works locally in your browser. It does not use analytics, advertising, tracking, remote code, or external services.
+PairPane handles information only as needed for a feature the user invokes.
 
-## Information the Extension Handles
+### Active comparison sessions
 
-Tandem Scroll handles a limited amount of browser and page state so it can provide its single purpose: synchronized scrolling between two user-selected tabs.
+PairPane temporarily stores paired tab identifiers, scroll positions, scrolling-panel identities, alignment points, permission state, and active tool state in `chrome.storage.session`. This information normally ends with the browser session.
 
-This may include:
+### Smart Align
 
-- The tab IDs of the two tabs selected by the user.
-- Basic tab metadata, such as tab title and URL, so the user can identify which tabs to pair.
-- Scroll position information for paired tabs, such as the current horizontal or vertical scroll position.
-- Session settings, such as whether synchronization is enabled and whether vertical or both-direction scrolling is active.
+After the user invokes Smart Align, PairPane reads bounded page headings, heading IDs, hierarchy, and local positions. The information is compared locally to propose explainable alignment points. It is not sent to PairPane servers.
 
-Tandem Scroll does not read, store, or transmit the text, images, form fields, passwords, documents, or other page content from websites.
+### Difference Lens
 
-## How Information Is Used
+After the user invokes Difference Lens, PairPane reads bounded visible text blocks from the main page content. PairPane excludes inputs, textareas, selects, options, password fields, editable content, scripts, styles, `noscript` content, and hidden content. Extracted comparison text is transient unless the user explicitly adds a result to a saved review.
 
-Tandem Scroll uses browser and page state only to:
+### Page Signals
 
-- Display eligible tabs for pairing.
-- Remember the two tabs selected for the current browser session.
-- Send scroll position updates between the paired tabs.
-- Stop synchronization when a paired tab is closed, replaced, or no longer available.
-- Restore synchronization state after Chrome restarts the extension service worker during the same browser session.
+After the user invokes Page Signals, PairPane reads limited document metadata including titles, headings, canonical links, descriptions, robots directives, language, Open Graph presence, and structured-data presence. Processing is local.
 
-The extension does not use this information for profiling, advertising, analytics, behavioral tracking, or any unrelated purpose.
+### Visible captures
 
-## Local Storage
+PairPane captures the active tab’s visible page area only after an explicit user action. A capture can contain private information visible on the page. PairPane provides preview, crop, blur, solid-mask redaction, retention, and deletion controls.
 
-Tandem Scroll uses Chrome's local session storage to keep temporary pairing state and synchronization settings. This information stays on the user's device and is intended to clear when the browser session ends.
+Capture image blobs are stored in extension-owned IndexedDB. Lightweight capture metadata and indexes are stored in `chrome.storage.local`. New captures default to session retention unless the user chooses another retention period or explicitly attaches the capture to a saved review or report.
 
-Stored session data does not include page content or personal information entered into websites.
+### Saved profiles, Review Runs, and reviews
 
-## Data Sharing
+PairPane can persist the following locally when requested:
 
-Tandem Scroll does not sell, rent, share, or transfer user data to third parties.
+- Environment names, exact origins, and path-prefix mappings.
+- Explicitly allowlisted query keys.
+- Dynamic-content ignore rules.
+- Route sets and Review Run progress.
+- Pass, Fail, N/A, and open statuses.
+- Severity, notes, route labels, page URLs, and capture references.
+- User preferences such as capture retention and status-chip position.
 
-The extension does not send tab information, URLs, scroll positions, page content, or settings to any server controlled by the developer or by a third party.
-
-## Remote Code
-
-Tandem Scroll does not use remote code. All JavaScript, HTML, CSS, and extension logic are packaged with the extension. The extension does not download, inject, or execute code from external servers.
+PairPane rejects credential-like query keys such as passwords, tokens, secrets, session identifiers, authorization values, and API keys.
 
 ## Permissions
 
-Tandem Scroll requests browser permissions only to provide synchronized scrolling.
+- `activeTab` grants temporary access after the user invokes PairPane on a selected page.
+- `scripting` injects packaged PairPane code only into selected pages.
+- `storage` keeps session state and explicitly saved local information.
+- `sidePanel` hosts the persistent comparison workspace.
+- Optional host access may be requested for the two exact origins displayed in a saved profile. It is off by default and can be revoked per profile.
 
-### Storage
+PairPane does not request broad host access at installation.
 
-The storage permission is used to store active tab-pair IDs and synchronization settings for the current browser session.
+## Data transmission
 
-### Tabs
+PairPane does not automatically transmit page text, captures, browsing URLs, review notes, or profile data to a PairPane server. Core extension features contain no runtime network client.
 
-The tabs permission is used to display eligible tabs, identify the two tabs selected by the user, focus the partner tab when requested, handle tab lifecycle changes, and route scroll updates between paired tabs.
+When a user exports and saves or shares a report, the exported file leaves PairPane’s control. The export preview lists included routes, URLs, notes, statuses, and capture references. Query strings are stripped by default; only explicitly approved profile query keys may be retained when the user changes that setting.
 
-### Scripting
+## Analytics
 
-The scripting permission is used to activate the scroll synchronization script in tabs explicitly paired by the user, including tabs already open before installation.
+PairPane does not use behavioral analytics or page-level browsing telemetry. Performance measurements and workflow counters, where present, remain local unless the user explicitly creates and shares sanitized diagnostics. Diagnostics exclude browsing URLs, page text, screenshots, and notes.
 
-## Website Content
+## User control
 
-Tandem Scroll does not collect website content. The extension only needs top-level scroll position information to synchronize scrolling. It does not inspect page text, capture screenshots, read forms, access passwords, or monitor browsing history.
+The **Privacy and local data** settings view shows local storage usage by category and provides scoped deletion for:
 
-## Analytics and Tracking
+- Captures.
+- Reviews.
+- Profiles.
+- Route sets and Review Runs.
+- All persistent local data.
 
-Tandem Scroll does not include analytics, cookies, tracking pixels, advertising SDKs, telemetry services, or similar tracking technologies.
+Users can preview and delete individual captures, rebuild the capture index, revoke optional origin access, clear transient comparisons, and export selected review information.
 
-## Children's Privacy
+## Security boundaries
 
-Tandem Scroll is a general browser utility and is not directed to children. The extension does not knowingly collect personal information from anyone, including children.
+PairPane does not synchronize clicks, typing, form values, file inputs, authentication, payments, destructive actions, or form submissions. Path Sync performs only safe route navigation within explicitly saved origins.
 
-## Changes to This Policy
+## Changes
 
-This privacy policy may be updated if Tandem Scroll's functionality or data practices change. Any updates will be reflected by changing the "Last updated" date above.
-
-## Contact
-
-For privacy questions about Tandem Scroll, contact the developer at:
-
-hello@niraajojha.com
+Material privacy changes must update this policy and the Chrome Web Store disclosures before release. Features that introduce remote processing, accounts, or third-party integrations require separate, explicit disclosure and user consent.
